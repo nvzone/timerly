@@ -11,7 +11,7 @@ local M = {
     end,
   },
 
-  mode = "", -- or pause
+  status = "", -- or pause
 }
 
 return M

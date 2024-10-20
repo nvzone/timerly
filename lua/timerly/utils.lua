@@ -54,7 +54,7 @@ M.start = function(minutes)
       else
         state.timer:stop()
         state.config.on_finish()
-        state.mode = ""
+        state.status = ""
       end
 
       redraw(state.buf, "clock")

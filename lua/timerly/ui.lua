@@ -20,8 +20,8 @@ M.progress = function()
 end
 
 M.actionbtns = function()
-  local btn1mode = state.mode == "start"
-  local btn1txt = btn1mode and "  Pause" or "  Start"
+  local btn1status = state.status == "start"
+  local btn1txt = btn1status and "  Pause" or "  Start"
 
   local hovermark = vim.g.nvmark_hovered
   local btn1 = {
@@ -30,7 +30,7 @@ M.actionbtns = function()
 
     {
       hover = { id = "tbtn1", redraw = "actionbtns" },
-      click = btn1mode and api.pause or api.start,
+      click = btn1status and api.pause or api.start,
     },
   }
 
