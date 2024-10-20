@@ -36,8 +36,13 @@ M.decrement = function()
 end
 
 M.setmode = function()
-  state.mode = (state.mode == "focus" and "break") or "focus"
+  local focusmode = state.mode == "focus"
+  state.mode = (focusmode and "break") or "focus"
+  state.minutes = state.config.minutes[focusmode and 2 or 1]
+  utils.secs_to_ascii(state.minutes * 60)
+
   redraw(state.buf, "modes")
+  redraw(state.buf, "clock")
 end
 
 return M

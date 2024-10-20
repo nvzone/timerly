@@ -9,6 +9,9 @@ local timerlyapi = require "timerly.api"
 local M = {}
 
 M.open = function()
+  local config = state.config
+  state.minutes = config.minutes[1]
+
   state.buf = api.nvim_create_buf(false, true)
   local h = 14
 
