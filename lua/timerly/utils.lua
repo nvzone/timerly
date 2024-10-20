@@ -45,7 +45,7 @@ M.start = function(minutes)
     0,
     1000,
     vim.schedule_wrap(function()
-      state.progress = math.floor((total_secs / (state.config.minutes * 60)) * 100)
+      state.progress = math.floor((total_secs / (state.minutes * 60)) * 100)
       state.progress = 100 - state.progress
       M.secs_to_ascii(total_secs)
 

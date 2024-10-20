@@ -4,9 +4,10 @@ local M = {
   xpad = 3,
   progress = 0,
   mode = "focus",
+  minutes = 10,
 
   config = {
-    minutes = 10,
+    minutes = { 25, 5 },
     on_finish = function()
       vim.notify "Timerly: time's up!"
     end,

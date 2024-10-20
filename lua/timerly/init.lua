@@ -12,7 +12,7 @@ M.open = function()
   state.buf = api.nvim_create_buf(false, true)
   local h = 14
 
-  utils.secs_to_ascii(state.config.minutes * 60)
+  utils.secs_to_ascii(state.minutes * 60)
 
   state.w = 24 + 2 + (2 * 4) + (2 * state.xpad)
   state.w_with_pad = state.w - (2 * state.xpad)
@@ -50,7 +50,7 @@ M.open = function()
   vim.fn.prompt_setcallback(state.input_buf, function(input)
     local n = tonumber(input)
     if (type(n) == 'number') then
-      state.config.minutes = n
+      state.minutes = n
       timerlyapi.reset()
     end
   end)
@@ -73,7 +73,7 @@ M.open = function()
   }
 
   volt.run(state.buf, { h = h, w = state.w })
-  -- utils.start(state.config.minutes)
+  -- utils.start(state.minutes)
   volt_events.add(state.buf)
 
   volt.mappings {
