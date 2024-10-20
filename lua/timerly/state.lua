@@ -3,6 +3,7 @@ local M = {
   clock = nil,
   xpad = 3,
   progress = 0,
+  mode = "focus",
 
   config = {
     minutes = 10,

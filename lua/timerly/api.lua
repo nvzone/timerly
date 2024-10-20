@@ -35,4 +35,9 @@ M.decrement = function()
   redraw(state.buf, "clock")
 end
 
+M.setmode = function()
+  state.mode = (state.mode == "focus" and "break") or "focus"
+  redraw(state.buf, "modes")
+end
+
 return M

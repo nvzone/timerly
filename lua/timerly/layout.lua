@@ -1,4 +1,5 @@
 local ui = require "timerly.ui"
+local state = require "timerly.state"
 
 local function ypad(n)
   local emptylines = {}
@@ -16,7 +17,31 @@ local function ypad(n)
   }
 end
 
+local line = function(id, direction)
+  local icon = direction == "up" and { "┌", "┐" } or { "└", "┘" }
+
+  return {
+    col_start =2,
+    lines = function()
+      return {
+        { { icon[1] .. string.rep("─", state.w_with_pad ) .. icon[2], "comment" } },
+      }
+    end,
+    name = id,
+  }
+end
+
 return {
+
+  line("line1", "up"),
+
+  {
+    lines = ui.modes,
+    name = "modes",
+    col_start=2
+  },
+
+  line "line2",
 
   ypad(1),
 

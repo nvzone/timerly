@@ -5,6 +5,35 @@ local voltui = require "volt.ui"
 local redraw = require("volt").redraw
 local utils = require "timerly.utils"
 
+M.modes = function()
+  local hovermark = vim.g.nvmark_hovered
+  local mode = state.mode
+
+  local focus_m = {
+    "   Focus ",
+    ((mode == "focus" or hovermark == "focus_m") and "exgreen") or "comment",
+    {
+      hover = { id = "focus_m", redraw = "modes" },
+      click = api.setmode,
+    },
+  }
+
+  local break_m = {
+    " 󰒲  Break",
+    ((mode == "break" or hovermark == "break_m") and "exgreen") or "comment",
+    {
+
+      hover = { id = "break_m", redraw = "modes" },
+      click = api.setmode,
+    },
+  }
+
+
+  return {
+    { { "│ ", "comment" }, { "󰀘  Modes     " },  focus_m, break_m, { " │", "comment" } },
+  }
+end
+
 M.clock = function()
   return state.clock
 end
@@ -48,7 +77,7 @@ M.actionbtns = function()
 
   local plusbtn = {
     "",
-     hovermark == "tbtn3" and "normal" or "exgreen",
+    hovermark == "tbtn3" and "normal" or "exgreen",
     {
       hover = { id = "tbtn3", redraw = "actionbtns" },
       click = api.increment,

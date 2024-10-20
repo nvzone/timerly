@@ -10,7 +10,7 @@ local M = {}
 
 M.open = function()
   state.buf = api.nvim_create_buf(false, true)
-  local h = 11
+  local h = 14
 
   utils.secs_to_ascii(state.config.minutes * 60)
 
@@ -33,7 +33,7 @@ M.open = function()
   state.input_buf = api.nvim_create_buf(false, true)
 
   local input_win = api.nvim_open_win(state.input_buf, true, {
-    row = h + 2,
+    row = h + 1,
     col = -1,
     width = state.w,
     height = 1,
