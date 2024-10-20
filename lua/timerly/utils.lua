@@ -2,6 +2,7 @@ local M = {}
 local state = require "timerly.state"
 local ascii = require "timerly.ascii"
 local redraw = require("volt").redraw
+local api = vim.api
 
 M.secs_to_ascii = function(n)
   local mins = n / 60 -- Make sure mins is an integer
@@ -63,6 +64,50 @@ M.start = function(minutes)
       state.total_secs = total_secs
     end)
   )
+end
+
+M.openwins = function()
+  local centered_col = math.floor((vim.o.columns / 2) - (state.w / 2))
+  local centered_row = math.floor((vim.o.lines / 2) - (state.h / 2))
+
+  state.buf = state.buf or api.nvim_create_buf(false, true)
+
+  state.win = api.nvim_open_win(state.buf, true, {
+    relative = "editor",
+    row = centered_row,
+    col = centered_col,
+    width = state.w,
+    height = state.h,
+    style = "minimal",
+    border = "single",
+  })
+
+  state.input_buf = state.input_buf or api.nvim_create_buf(false, true)
+
+  state.input_win = api.nvim_open_win(state.input_buf, true, {
+    row = state.h + 1,
+    col = -1,
+    width = state.w,
+    height = 1,
+    relative = "win",
+    win = state.win,
+    style = "minimal",
+    border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
+  })
+
+  vim.bo[state.input_buf].buftype = "prompt"
+  vim.fn.prompt_setprompt(state.input_buf, " 󰄉  Enter time: ")
+  vim.wo[state.input_win].winhl = "Normal:ExBlack2Bg,FloatBorder:ExBlack2Border"
+
+  api.nvim_win_set_hl_ns(state.win, state.ns)
+  api.nvim_set_hl(state.ns, "Normal", { link = "ExdarkBg" })
+  api.nvim_set_hl(state.ns, "FLoatBorder", { link = "Exdarkborder" })
+
+  vim.cmd.startinsert()
+
+  vim.schedule(function()
+    api.nvim_set_current_win(state.win)
+  end)
 end
 
 return M

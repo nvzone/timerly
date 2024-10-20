@@ -3,80 +3,42 @@ local state = require "timerly.state"
 local api = vim.api
 local volt = require "volt"
 local volt_events = require "volt.events"
-state.ns = api.nvim_create_namespace "Timerly"
 local timerlyapi = require "timerly.api"
+
+state.ns = api.nvim_create_namespace "Timerly"
 
 local M = {}
 
 M.open = function()
+  state.volt_set = true
   local config = state.config
   state.minutes = config.minutes[1]
-
-  state.buf = api.nvim_create_buf(false, true)
-  local h = 14
 
   utils.secs_to_ascii(state.minutes * 60)
 
   state.w = 24 + 2 + (2 * 4) + (2 * state.xpad)
   state.w_with_pad = state.w - (2 * state.xpad)
 
-  local centered_col = math.floor((vim.o.columns / 2) - (state.w / 2))
-  local centered_row = math.floor((vim.o.lines / 2) - (h / 2))
-
-  local win = api.nvim_open_win(state.buf, true, {
-    relative = "editor",
-    row = centered_row,
-    col = centered_col,
-    width = state.w,
-    height = h,
-    style = "minimal",
-    border = "single",
-  })
-
-  state.input_buf = api.nvim_create_buf(false, true)
-
-  local input_win = api.nvim_open_win(state.input_buf, true, {
-    row = h + 1,
-    col = -1,
-    width = state.w,
-    height = 1,
-    relative = "win",
-    win = win,
-    style = "minimal",
-    border = { "┏", "━", "┓", "┃", "┛", "━", "┗", "┃" },
-  })
-
-  vim.bo[state.input_buf].buftype = "prompt"
-  vim.fn.prompt_setprompt(state.input_buf, " 󰄉  Enter time: ")
-  vim.wo[input_win].winhl = "Normal:ExBlack2Bg,FloatBorder:ExBlack2Border"
+  utils.openwins()
 
   vim.fn.prompt_setcallback(state.input_buf, function(input)
     local n = tonumber(input)
-    if (type(n) == 'number') then
+    if type(n) == "number" then
       state.minutes = n
       timerlyapi.reset()
     end
   end)
-
-  vim.cmd "startinsert"
-
-  api.nvim_win_set_hl_ns(win, state.ns)
-  api.nvim_set_hl(state.ns, "Normal", { link = "ExdarkBg" })
-  api.nvim_set_hl(state.ns, "FLoatBorder", { link = "Exdarkborder" })
-
-  local ns = api.nvim_create_namespace "NVTimer"
 
   volt.gen_data {
     {
       buf = state.buf,
       layout = require "timerly.layout",
       xpad = state.xpad,
-      ns = ns,
+      ns = state.ns,
     },
   }
 
-  volt.run(state.buf, { h = h, w = state.w })
-  -- utils.start(state.minutes)
+  volt.run(state.buf, { h = state.h, w = state.w })
   volt_events.add(state.buf)
 
   volt.mappings {
@@ -84,8 +46,24 @@ M.open = function()
     input_buf = state.input_buf,
     after_close = function()
       state.timer:stop()
+      state.buf = nil
+      state.input_buf = nil
+      state.volt_set = false
     end,
   }
+end
+
+M.toggle = function()
+  if not state.volt_set then
+    M.open()
+  elseif state.visible then
+    api.nvim_win_close(state.win, true)
+    api.nvim_win_close(state.input_win, true)
+  else
+    utils.openwins()
+  end
+
+  state.visible = not state.visible
 end
 
 return M
