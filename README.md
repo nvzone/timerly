@@ -1,7 +1,17 @@
 # Timerly (WIP) !!
 
-Eye candy interactive timer plugin for Neovim
+Eye candy interactive timer plugin for Neovim 
 
-## Teaser 
- 
-https://github.com/user-attachments/assets/3b73d854-ec3d-4bd0-a911-285b139e9468
+https://github.com/user-attachments/assets/6379f73b-0c4a-4783-bca9-ea6edb4a49fc
+
+## Install
+
+```lua
+"nvchad/volt",
+{ "nvchad/timerly", cmd = "TimerlyToggle" }
+```
+
+- For config, check the [config table here](https://github.com/NvChad/timerly/blob/main/lua/timerly/state.lua#L12)
+
+## Mappings ( WIP )
+- NONE YET , use mouse!
