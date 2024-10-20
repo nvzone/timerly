@@ -11,7 +11,7 @@ end
 
 M.reset = function()
   state.progress = 0
-  state.mode=""
+  state.mode = ""
   state.timer:stop()
   utils.secs_to_ascii(state.config.minutes * 60)
   redraw(state.buf, "clock")
@@ -21,6 +21,18 @@ end
 M.pause = function()
   state.mode = "pause"
   state.timer:stop()
+end
+
+M.increment = function()
+  state.config.minutes = state.config.minutes + 1
+  utils.secs_to_ascii(state.config.minutes * 60)
+  redraw(state.buf, "clock")
+end
+
+M.decrement = function()
+  state.config.minutes = state.config.minutes - 1
+  utils.secs_to_ascii(state.config.minutes * 60)
+  redraw(state.buf, "clock")
 end
 
 return M

@@ -33,7 +33,7 @@ M.open = function()
   state.input_buf = api.nvim_create_buf(false, true)
 
   local input_win = api.nvim_open_win(state.input_buf, true, {
-    row = h + 1,
+    row = h + 2,
     col = -1,
     width = state.w,
     height = 1,

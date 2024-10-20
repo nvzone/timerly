@@ -21,8 +21,7 @@ end
 
 M.actionbtns = function()
   local btn1mode = state.mode == "start"
-  local btn1txt = btn1mode and "  Pause" or "  Resume"
-  btn1txt = state.mode == "" and "  Start " or btn1txt
+  local btn1txt = btn1mode and "  Pause" or "  Start"
 
   local hovermark = vim.g.nvmark_hovered
   local btn1 = {
@@ -37,7 +36,7 @@ M.actionbtns = function()
 
   local resetbtn = {
     "  Reset ",
-    hovermark == "tbtn2" and "normal" or "Exred",
+    hovermark == "tbtn2" and "normal" or "Exblue",
     {
 
       hover = { id = "tbtn2", redraw = "actionbtns" },
@@ -45,8 +44,28 @@ M.actionbtns = function()
     },
   }
 
+  local pad = { string.rep(" ", 7) }
+
+  local plusbtn = {
+    "",
+     hovermark == "tbtn3" and "normal" or "exgreen",
+    {
+      hover = { id = "tbtn3", redraw = "actionbtns" },
+      click = api.increment,
+    },
+  }
+
+  local minbtn = {
+    "",
+    hovermark == "tbtn4" and "normal" or "exred",
+    {
+      hover = { id = "tbtn4", redraw = "actionbtns" },
+      click = api.decrement,
+    },
+  }
+
   return {
-    { btn1, { string.rep(" ", (state.mode == "pause" or state.mode == "") and 17 or 18) }, resetbtn },
+    { btn1, pad, minbtn, { "  " }, plusbtn, pad, resetbtn },
   }
 end
 
