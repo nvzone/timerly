@@ -47,12 +47,14 @@ M.start = function(minutes)
     vim.schedule_wrap(function()
       state.progress = math.floor((total_secs / (state.config.minutes * 60)) * 100)
       state.progress = 100 - state.progress
+      M.secs_to_ascii(total_secs)
 
       if total_secs > 0 then
-        M.secs_to_ascii(total_secs)
         total_secs = total_secs - 1
       else
         state.timer:stop()
+        state.config.on_finish()
+        state.mode = ""
       end
 
       redraw(state.buf, "clock")

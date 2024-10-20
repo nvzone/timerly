@@ -57,10 +57,6 @@ M.open = function()
 
   vim.cmd "startinsert"
 
-  -- vim.cmd "startinsert"
-
-  -- api.nvim_set_current_win(input_win)
-
   api.nvim_win_set_hl_ns(win, state.ns)
   api.nvim_set_hl(state.ns, "Normal", { link = "ExdarkBg" })
   api.nvim_set_hl(state.ns, "FLoatBorder", { link = "Exdarkborder" })

@@ -6,6 +6,9 @@ local M = {
 
   config = {
     minutes = 10,
+    on_finish = function()
+      vim.notify "Timerly: time's up!"
+    end,
   },
 
   mode = "", -- or pause
