@@ -51,6 +51,8 @@ M.open = function()
       state.volt_set = false
     end,
   }
+
+  require "timerly.actions"
 end
 
 M.toggle = function()

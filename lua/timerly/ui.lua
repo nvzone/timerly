@@ -2,8 +2,6 @@ local M = {}
 local api = require "timerly.api"
 local state = require "timerly.state"
 local voltui = require "volt.ui"
-local redraw = require("volt").redraw
-local utils = require "timerly.utils"
 
 M.modes = function()
   local hovermark = vim.g.nvmark_hovered
@@ -14,7 +12,7 @@ M.modes = function()
     ((mode == "focus" or hovermark == "focus_m") and "exgreen") or "comment",
     {
       hover = { id = "focus_m", redraw = "modes" },
-      click = api.setmode,
+      click = api.togglemode,
     },
   }
 
@@ -24,13 +22,12 @@ M.modes = function()
     {
 
       hover = { id = "break_m", redraw = "modes" },
-      click = api.setmode,
+      click = api.togglemode,
     },
   }
 
-
   return {
-    { { "│ ", "comment" }, { "󰀘  Modes     " },  focus_m, break_m, { " │", "comment" } },
+    { { "│ ", "comment" }, { "󰀘  Modes     " }, focus_m, break_m, { " │", "comment" } },
   }
 end
 
@@ -49,17 +46,15 @@ M.progress = function()
 end
 
 M.actionbtns = function()
-  local btn1status = state.status == "start"
-  local btn1txt = btn1status and "  Pause" or "  Start"
-
   local hovermark = vim.g.nvmark_hovered
+
   local btn1 = {
-    btn1txt,
+    state.status == "start" and "  Pause" or "  Start",
     hovermark == "tbtn1" and "ExRed" or "Normal",
 
     {
       hover = { id = "tbtn1", redraw = "actionbtns" },
-      click = btn1status and api.pause or api.start,
+      click = api.togglestatus,
     },
   }
 

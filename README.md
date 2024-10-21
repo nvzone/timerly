@@ -13,5 +13,10 @@ https://github.com/user-attachments/assets/6379f73b-0c4a-4783-bca9-ea6edb4a49fc
 
 - For config, check the [config table here](https://github.com/NvChad/timerly/blob/main/lua/timerly/state.lua#L12)
 
-## Mappings ( WIP )
-- NONE YET , use mouse!
+## Mappings
+
+- toggle mode: `m`
+- toggle status: `<leader>`
+- increment: `<up>`
+- decrement: `<down>`
+- reset: `<BS>`
