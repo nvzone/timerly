@@ -2,8 +2,8 @@
 
 Eye candy interactive timer plugin for Neovim 
 
-https://github.com/user-attachments/assets/6379f73b-0c4a-4783-bca9-ea6edb4a49fc
-
+https://github.com/user-attachments/assets/070b7e4d-abb3-462e-b4b1-a95f6143be58
+ 
 ## Install
 
 ```lua
