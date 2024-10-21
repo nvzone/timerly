@@ -25,3 +25,7 @@ map("n", "<leader>", myapi.togglestatus, { buffer = state.buf })
 map("n", "<up>", myapi.increment, { buffer = state.buf })
 map("n", "<down>", myapi.decrement, { buffer = state.buf })
 map("n", "<BS>", myapi.reset, { buffer = state.buf })
+
+if state.config.mapping then
+  state.config.mapping(state.buf)
+end

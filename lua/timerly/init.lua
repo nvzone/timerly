@@ -9,6 +9,10 @@ state.ns = api.nvim_create_namespace "Timerly"
 
 local M = {}
 
+M.setup = function(opts)
+  state.config = vim.tbl_deep_extend("force", state.config, opts or {})
+end
+
 M.open = function()
   state.volt_set = true
   local config = state.config
