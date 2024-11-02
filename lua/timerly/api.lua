@@ -26,24 +26,20 @@ end
 
 M.increment = function()
   state.minutes = state.minutes + 1
-  utils.secs_to_ascii(state.minutes * 60)
-  redraw(state.buf, "clock")
+  M.reset()
 end
 
 M.decrement = function()
   state.minutes = state.minutes - 1
-  utils.secs_to_ascii(state.minutes * 60)
-  redraw(state.buf, "clock")
+  M.reset()
 end
 
 M.togglemode = function()
   local focusmode = state.mode == "focus"
   state.mode = (focusmode and "break") or "focus"
   state.minutes = state.config.minutes[focusmode and 2 or 1]
-  utils.secs_to_ascii(state.minutes * 60)
-
   redraw(state.buf, "modes")
-  redraw(state.buf, "clock")
+  M.reset()
 end
 
 M.togglestatus = function()
