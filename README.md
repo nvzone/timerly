@@ -1,5 +1,4 @@
-# Timerly (WIP) !!
-
+# Timerly
 Eye candy interactive timer plugin for Neovim 
 
 https://github.com/user-attachments/assets/070b7e4d-abb3-462e-b4b1-a95f6143be58
