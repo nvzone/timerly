@@ -47,7 +47,6 @@ M.open = function()
 
   volt.mappings {
     bufs = { state.buf, state.input_buf },
-    input_buf = state.input_buf,
     after_close = function()
       state.timer:stop()
       state.buf = nil
