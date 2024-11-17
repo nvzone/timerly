@@ -12,6 +12,10 @@ https://github.com/user-attachments/assets/070b7e4d-abb3-462e-b4b1-a95f6143be58
 
 - For config, check the [config table here](https://github.com/NvChad/timerly/blob/main/lua/timerly/state.lua#L12)
 
+## Commands
+
+- TimerlyToggle
+
 ## Mappings
 
 - toggle mode: `m`
