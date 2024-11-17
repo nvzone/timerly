@@ -1,5 +1,5 @@
 # Timerly
-Eye candy interactive timer plugin for Neovim 
+Eye candy interactive timer plugin for Neovim. Useful for those who spend large amount of time in Neovim. I code in Nvim and use it for work too so 10 hrs ~ at a busy day, the timer helps me with breaks and acts as a reminder to not sit for long hours!
 
 https://github.com/user-attachments/assets/070b7e4d-abb3-462e-b4b1-a95f6143be58
  
