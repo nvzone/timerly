@@ -4,6 +4,10 @@ local state = require "timerly.state"
 local redraw = require("volt").redraw
 
 M.start = function()
+  if state.config.on_start then
+    state.config.on_start()
+  end
+
   local mins = state.status == "pause" and (state.total_secs / 60) or state.minutes
   utils.start(mins)
   state.status = "start"

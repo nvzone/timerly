@@ -11,6 +11,7 @@ local M = {
 
   config = {
     minutes = { 25, 5 },
+    on_start = nil, -- func
     on_finish = function()
       vim.notify "Timerly: time's up!"
     end,
