@@ -5,6 +5,12 @@ local redraw = require("volt").redraw
 local api = vim.api
 
 M.secs_to_ascii = function(n)
+  if state.minutes > 59 then
+    state.minutes = 25
+    n = 25 * 60
+    vim.notify "Timerly: you can't set a time longer than 25 minutes"
+  end
+
   local mins = n / 60 -- Make sure mins is an integer
   local secs = n % 60
 
