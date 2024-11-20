@@ -16,6 +16,8 @@ local M = {
       vim.notify "Timerly: time's up!"
     end,
     mapping = nil, -- is func
+    style = "compact",
+    position = "top-right"
   },
 
   status = "", -- or pause

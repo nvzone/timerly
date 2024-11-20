@@ -72,22 +72,7 @@ M.start = function(minutes)
   )
 end
 
-M.openwins = function()
-  local centered_col = math.floor((vim.o.columns / 2) - (state.w / 2))
-  local centered_row = math.floor((vim.o.lines / 2) - (state.h / 2))
-
-  state.buf = state.buf or api.nvim_create_buf(false, true)
-
-  state.win = api.nvim_open_win(state.buf, true, {
-    relative = "editor",
-    row = centered_row,
-    col = centered_col,
-    width = state.w,
-    height = state.h,
-    style = "minimal",
-    border = "single",
-  })
-
+local function open_input()
   state.input_buf = state.input_buf or api.nvim_create_buf(false, true)
 
   state.input_win = api.nvim_open_win(state.input_buf, true, {
@@ -104,12 +89,41 @@ M.openwins = function()
   vim.bo[state.input_buf].buftype = "prompt"
   vim.fn.prompt_setprompt(state.input_buf, " 󰄉  Enter time: ")
   vim.wo[state.input_win].winhl = "Normal:ExBlack2Bg,FloatBorder:ExBlack2Border"
-
   api.nvim_win_set_hl_ns(state.win, state.ns)
   api.nvim_set_hl(state.ns, "Normal", { link = "ExdarkBg" })
   api.nvim_set_hl(state.ns, "FLoatBorder", { link = "Exdarkborder" })
-
   vim.cmd.startinsert()
+end
+
+M.openwins = function()
+  local centered_row
+  local centered_col
+
+  state.buf = state.buf or api.nvim_create_buf(false, true)
+
+  if state.config.position == "center" then
+    centered_col = math.floor((vim.o.columns / 2) - (state.w / 2))
+    centered_row = math.floor((vim.o.lines / 2) - (state.h / 2))
+  end
+
+  if state.config.position == "top-right" then
+    centered_row = 0
+    centered_col = vim.o.columns - state.w - 1
+  end
+
+  state.win = api.nvim_open_win(state.buf, true, {
+    relative = "editor",
+    row = centered_row,
+    col = centered_col,
+    width = state.w,
+    height = state.h,
+    style = "minimal",
+    border = "single",
+  })
+
+  if state.config.style ~= "compact" then
+    open_input()
+  end
 
   vim.schedule(function()
     api.nvim_set_current_win(state.win)
