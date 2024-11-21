@@ -55,7 +55,7 @@ M.open = function()
     end,
   }
 
-  require "timerly.actions"
+  require "timerly.actions"()
 end
 
 M.toggle = function()
