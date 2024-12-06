@@ -6,8 +6,18 @@ https://github.com/user-attachments/assets/070b7e4d-abb3-462e-b4b1-a95f6143be58
 ## Install
 
 ```lua
-"nvzone/volt",
-{ "nvzone/timerly", cmd = "TimerlyToggle" }
+{
+  "nvzone/timerly",
+  lazy=false,
+  dependencies = {
+    'nvzone/volt'
+  },
+  cmd = "TimerlyToggle",
+  config = function()
+      require('timerly').setup()
+      vim.keymap.set('n', '<leader>tc', ':TimerlyToggle<CR>', { desc = "Toggle Timerly" })
+  end,
+},
 ```
 
 - For config, check the [config table here](https://github.com/NvChad/timerly/blob/main/lua/timerly/state.lua#L12)
