@@ -34,6 +34,7 @@ M.increment = function()
 end
 
 M.decrement = function()
+  if state.minutes == 0 then return end
   state.minutes = state.minutes - 1
   M.reset()
 end
