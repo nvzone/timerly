@@ -72,16 +72,38 @@ M.start = function(minutes)
   )
 end
 
+M.set_position = function(position)
+  local columns = vim.o.columns
+  local lines = vim.o.lines
+
+  if type(position) == "function" then
+    return position(state.w, state.h)
+  end
+
+  if position == "center" then
+    local centered_col = math.floor((columns / 2) - (state.w / 2))
+    local centered_row = math.floor(lines - (state.h / 2))
+    return centered_row, centered_col
+  elseif position == "top-left" then
+    return 1, 2
+  elseif position == "top-right" then
+    return 1, columns - state.w - 4
+  elseif position == "bottom-left" then
+    return lines - state.h - 8, 2
+  elseif position == "bottom-right" then
+    return lines - state.h - 8, columns - state.w - 4
+  end
+end
+
 M.openwins = function()
-  local centered_col = math.floor((vim.o.columns / 2) - (state.w / 2))
-  local centered_row = math.floor((vim.o.lines / 2) - (state.h / 2))
+  local row, col = M.set_position(state.config.position)
 
   state.buf = state.buf or api.nvim_create_buf(false, true)
 
   state.win = api.nvim_open_win(state.buf, true, {
     relative = "editor",
-    row = centered_row,
-    col = centered_col,
+    row = row,
+    col = col,
     width = state.w,
     height = state.h,
     style = "minimal",
