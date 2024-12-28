@@ -52,10 +52,21 @@ M.open = function()
       state.buf = nil
       state.input_buf = nil
       state.volt_set = false
+      vim.api.nvim_del_augroup_by_name "TimerlyResize"
     end,
   }
 
   require "timerly.actions"()
+
+  vim.api.nvim_create_autocmd("VimResized", {
+    group = vim.api.nvim_create_augroup("TimerlyResize",{}),
+    callback = function()
+      if state.visible then
+        require("timerly").toggle()
+        require("timerly").toggle()
+      end
+    end,
+  })
 end
 
 M.toggle = function()
