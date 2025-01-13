@@ -24,7 +24,7 @@ local line = function(id, direction)
     col_start =2,
     lines = function()
       return {
-        { { icon[1] .. string.rep("─", state.w_with_pad ) .. icon[2], "comment" } },
+        { { icon[1] .. string.rep("─", state.w_with_pad ) .. icon[2], "commentfg" } },
       }
     end,
     name = id,

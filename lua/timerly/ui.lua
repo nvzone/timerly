@@ -9,7 +9,7 @@ M.modes = function()
 
   local focus_m = {
     "   Focus ",
-    ((mode == "focus" or hovermark == "focus_m") and "exgreen") or "comment",
+    ((mode == "focus" or hovermark == "focus_m") and "exgreen") or "commentfg",
     {
       hover = { id = "focus_m", redraw = "modes" },
       click = api.togglemode,
@@ -18,7 +18,7 @@ M.modes = function()
 
   local break_m = {
     " 󰒲  Break",
-    ((mode == "break" or hovermark == "break_m") and "exgreen") or "comment",
+    ((mode == "break" or hovermark == "break_m") and "exgreen") or "commentfg",
     {
 
       hover = { id = "break_m", redraw = "modes" },
@@ -27,7 +27,7 @@ M.modes = function()
   }
 
   return {
-    { { "│ ", "comment" }, { "󰀘  Modes     " }, focus_m, break_m, { " │", "comment" } },
+    { { "│ ", "commentfg" }, { "󰀘  Modes     " }, focus_m, break_m, { " │", "commentfg" } },
   }
 end
 
