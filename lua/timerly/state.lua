@@ -10,6 +10,7 @@ local M = {
   h = 14,
 
   config = {
+    cycle = false,
     minutes = { 25, 5 },
     on_start = nil, -- func
     on_finish = function()

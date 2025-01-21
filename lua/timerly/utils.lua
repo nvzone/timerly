@@ -1,4 +1,5 @@
 local M = {}
+local myapi = require "timerly.api"
 local state = require "timerly.state"
 local ascii = require "timerly.ascii"
 local redraw = require("volt").redraw
@@ -61,7 +62,11 @@ M.start = function(minutes)
       else
         state.timer:stop()
         state.config.on_finish()
-        state.status = ""
+        if state.cycle then
+          myapi.togglemode()
+        else
+          state.status = ""
+        end
       end
 
       redraw(state.buf, "clock")
