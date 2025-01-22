@@ -54,6 +54,8 @@ end
 
 M.toggleandrestart = function()
   M.togglemode()
+  local ms = state.config.delay * 1000
+  vim.wait(ms)
   M.start()
 end
 

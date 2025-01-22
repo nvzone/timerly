@@ -11,6 +11,7 @@ local M = {
 
   config = {
     cycle = false,
+    delay = 0, --if cycle is active, it defines the seconds between focus and break
     minutes = { 25, 5 },
     on_start = nil, -- func
     on_finish = function()
