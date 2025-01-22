@@ -1,5 +1,4 @@
 local M = {}
-local myapi = require "timerly.api"
 local state = require "timerly.state"
 local ascii = require "timerly.ascii"
 local redraw = require("volt").redraw
@@ -48,32 +47,31 @@ end
 
 M.start = function(minutes)
   local total_secs = minutes * 60
-
   state.timer:start(
-    0,
-    1000,
-    vim.schedule_wrap(function()
-      state.progress = math.floor((total_secs / (state.minutes * 60)) * 100)
-      state.progress = 100 - state.progress
-      M.secs_to_ascii(total_secs)
+  0,
+  1000,
+  vim.schedule_wrap(function()
+    state.progress = math.floor((total_secs / (state.minutes * 60)) * 100)
+    state.progress = 100 - state.progress
+    M.secs_to_ascii(total_secs)
 
-      if total_secs > 0 then
-        total_secs = total_secs - 1
-      else
-        state.timer:stop()
-        state.config.on_finish()
-        if state.cycle then
-          myapi.togglemode()
-        else
-          state.status = ""
-        end
+    if total_secs > 0 then
+      total_secs = total_secs - 1
+    else
+      state.timer:stop()
+      state.config.on_finish()
+      state.status = ""
+      if state.config.cycle then
+        local myapi = require "timerly.api"
+        myapi.toggleandrestart()
       end
+    end
 
-      redraw(state.buf, "clock")
-      redraw(state.buf, "progress")
+    redraw(state.buf, "clock")
+    redraw(state.buf, "progress")
 
-      state.total_secs = total_secs
-    end)
+    state.total_secs = total_secs
+  end)
   )
 end
 

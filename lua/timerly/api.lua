@@ -52,4 +52,9 @@ M.togglestatus = function()
   redraw(state.buf, "actionbtns")
 end
 
+M.toggleandrestart = function()
+  M.togglemode()
+  M.start()
+end
+
 return M
