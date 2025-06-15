@@ -82,7 +82,8 @@ M.set_position = function(position)
 
   if position == "center" then
     local centered_col = math.floor((columns / 2) - (state.w / 2))
-    local centered_row = math.floor((lines - state.h) / 2)
+    -- 3 cuz height of input win , 2 for timer win top/bot border
+    local centered_row = math.floor((lines - (state.h + 3 + 2)) / 2)
     return centered_row, centered_col
   elseif position == "top-left" then
     return 1, 2
