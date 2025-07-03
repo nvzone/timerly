@@ -8,15 +8,9 @@ https://github.com/user-attachments/assets/070b7e4d-abb3-462e-b4b1-a95f6143be58
 ```lua
 {
   "nvzone/timerly",
-  lazy=false,
-  dependencies = {
-    'nvzone/volt'
-  },
+  dependencies = 'nvzone/volt',
   cmd = "TimerlyToggle",
-  config = function()
-      require('timerly').setup()
-      vim.keymap.set('n', '<leader>tc', ':TimerlyToggle<CR>', { desc = "Toggle Timerly" })
-  end,
+  opts = {} -- optional
 },
 ```
 
