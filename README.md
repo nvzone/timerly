@@ -28,6 +28,39 @@ https://github.com/user-attachments/assets/070b7e4d-abb3-462e-b4b1-a95f6143be58
 - decrement: `<down>`
 - reset: `<BS>`
 
+
+## Using as a desktop app
+
+https://github.com/user-attachments/assets/97ad6370-53eb-4760-96f4-5736ec001b68
+
+- Add the Timer command in your Neovim config
+
+```lua
+vim.api.nvim_create_user_command("Timer", function()
+  vim.o.showtabline = 0
+  vim.o.laststatus = 0
+  vim.wo.number = false
+  vim.o.scl = "no"
+  vim.o.cmdheight = 0
+  vim.cmd "TimerlyToggle"
+end, {})
+```
+
+- ~/.local/share/applications/timerly.desktop
+
+```bash
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Timerly
+Icon=clockify
+Exec=st -g 42x19 -e nvim +':Timer'
+Terminal=false
+Categories=Utility;System;ConsoleOnly
+Keywords=timer;clock;time;task;
+```
+
+
 ## :gift_heart: Support
 
 If you like NvChad or its plugins and would like to support it via donation
